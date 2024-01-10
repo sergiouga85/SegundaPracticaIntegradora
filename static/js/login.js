@@ -1,7 +1,10 @@
-const formLogin = document.querySelector('form')
+const formLogin = document.getElementById('login')
 
-formLogin?.addEventListener('submit', async event => {
+formLogin?.addEventListener('submit', async (event) => {
   event.preventDefault()
+
+  // @ts-ignore
+  const formDataEncoded = new URLSearchParams(new FormData(formLogin))
 
   const response = await fetch('/api/sessions', {
     method: 'POST',
@@ -15,7 +18,12 @@ formLogin?.addEventListener('submit', async event => {
   if (response.status === 201) {
     window.location.href = '/profile'
   } else {
-    const error = await response.json()
-    alert(error.message)
+    Swal.fire({
+      title: "Fallo de inicio",
+      icon: "error",
+      color: "write",
+      text: "Ingresar usuario y contraseña!"
+    });
+    
   }
-})
+});
