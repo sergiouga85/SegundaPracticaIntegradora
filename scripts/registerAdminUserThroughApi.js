@@ -1,8 +1,11 @@
 const userData = {
+  first_name:'admin',
+  last_name:'admin',
   username: 'admin',
-  password: 'admin',
-  displayName: 'admin',
   email: 'admin@admin.com',
+  age: 'admin',
+  password: 'admin',
+  cart:'admin',
   rol: 'admin'
 }
 

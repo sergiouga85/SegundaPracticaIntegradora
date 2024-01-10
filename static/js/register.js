@@ -1,21 +1,36 @@
-const formRegister = document.querySelector('form')
+const formLogin = document.getElementById('register')
 
-formRegister?.addEventListener('submit', async event => {
+formLogin?.addEventListener('submit', async event => {
   event.preventDefault()
 
-  const response = await fetch('/api/users', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    // @ts-ignore
-    body: new URLSearchParams(new FormData(formRegister))
-  })
+  // @ts-ignore
+  const formDataEncoded = new URLSearchParams(new FormData(formLogin))
 
-  if (response.status === 201) {
-    window.location.href = '/profile'
-  } else {
-    const error = await response.json()
-    alert(error.message)
+  try {
+    const res = await fetch(
+      '/api/users',
+      {
+        method:'POST',
+        body: formDataEncoded,
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      },
+    )
+     // Verificar si la solicitud fue exitosa (código de respuesta 2xx)
+     if (res.ok) {
+      // Redirigir a la nueva página
+      //
+        Swal.fire({
+          title: "Usuario registrado!",
+          icon: "success",
+          color: "write"
+        });
+        window.location.href = '/login'
+    } else {
+      // Manejar otros casos si es necesario
+      console.log('La solicitud no fue exitosa. Código de respuesta:', res.status)
+    }
+
+  } catch (err) {
+    console.log(err.message)
   }
 })

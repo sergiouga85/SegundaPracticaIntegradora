@@ -10,7 +10,7 @@ const COOKIE_OPTS = { signed: true, maxAge: 1000 * 60 * 60, httpOnly: true }
 
 passport.use('localRegister', new LocalStrategy(
   { passReqToCallback: true },
-  async (req, _email, _password, done) => {
+  async (req, _username, _password, done) => {
     try {
       const user = await usersManager.register(req.body)
       done(null, user)
@@ -21,9 +21,9 @@ passport.use('localRegister', new LocalStrategy(
 )
 
 passport.use('localLogin', new LocalStrategy(
-  async (email, password, done) => {
+  async (username, password, done) => {
     try {
-      const user = await usersManager.login({ email, password })
+      const user = await usersManager.login({ username, password })
       done(null, user)
     } catch (error) {
       done(error)

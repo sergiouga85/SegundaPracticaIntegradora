@@ -1,6 +1,3 @@
-const btnLogout = document.querySelector('button')
-const spans = document.querySelectorAll('span')
-
 window.addEventListener('load', async () => {
   const response = await fetch('/api/users/current')
   if (response.status !== 200) {
@@ -11,32 +8,37 @@ window.addEventListener('load', async () => {
   const result = await response.json()
   const usuario = result.payload
 
-  spans[0].innerHTML = usuario.username
-  spans[1].innerHTML = usuario.displayName
-  spans[2].innerHTML = usuario.email
-
-  const ul = document.querySelector('nav ul')
-  const liLogout = document.createElement('li')
-  ul?.appendChild(liLogout)
-  const aLogout = document.createElement('a')
-  liLogout.appendChild(aLogout)
-  aLogout.innerHTML = 'Logout'
-  aLogout.href = '#'
-  aLogout.addEventListener('click', logout)
-
-  // @ts-ignore
-  document.querySelector('div').style.display = 'block'
+  document.getElementById('nombre').value= usuario.first_name
+  document.getElementById('apellido').value= usuario.last_name
+  document.getElementById('email').value= usuario.email 
 })
 
-async function logout(event) {
-  const response = await fetch('/api/sessions/current', {
-    method: 'DELETE'
-  })
+const buttonLogout = document.getElementById('logout')
 
-  if (response.status === 200) {
-    window.location.href = '/login'
-  } else {
-    const error = await response.json()
-    alert(error.message)
+buttonLogout?.addEventListener('click', async event => {
+  event.preventDefault()
+
+  // @ts-ignore
+  //const formDataEncoded = new URLSearchParams(new FormData(formLogin))
+
+  try {
+    const res = await fetch(
+      '/api/sessions/current',
+      {
+        method: 'DELETE',
+      },
+    )
+
+    // Verificar si la solicitud fue exitosa (código de respuesta 2xx)
+    if (res.ok) {
+      // Redirigir a la nueva página
+      window.location.href = '/login'
+    } else {
+      // Manejar otros casos si es necesario
+      console.log('La solicitud no fue exitosa. Código de respuesta:', res.status)
+    }
+
+  } catch (err) {
+    console.log(err.message)
   }
-}
+})
