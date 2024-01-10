@@ -16,7 +16,7 @@ formLogin?.addEventListener('submit', async (event) => {
   })
 
   if (response.status === 201) {
-    window.location.href = '/profile'
+    window.location.href = '/carritosActivos'
   } else {
     Swal.fire({
       title: "Fallo de inicio",

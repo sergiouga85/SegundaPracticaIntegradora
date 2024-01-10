@@ -23,4 +23,16 @@ webRouter.get('/login', (req, res) => {
   })
 })
 
+webRouter.get('/productos', (req, res) => {
+  res.render('productos.handlebars',{ titulo: 'Productos' })
+})
+
+webRouter.get('/carritos', (req, res) => {
+  res.render('carritos.handlebars',{ titulo: 'carritos' })
+})
+
+webRouter.get('/carritosActivos', (req, res) => {
+  res.render('carritosActivos.handlebars',{ titulo: 'Elegir Carritos' })
+})
+
 
