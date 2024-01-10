@@ -45,7 +45,7 @@ function selectCarrito(e) {
         //document.getElementById('carritoActivo').value = e.target.id
         localStorage.setItem('carrito', JSON.stringify(e.target.id))
         //console.log(document.getElementById('carritoActivo').value)
-        window.location = '/register'
+        window.location = '/productos'
     }
 }
 

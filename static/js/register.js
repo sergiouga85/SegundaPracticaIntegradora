@@ -1,11 +1,7 @@
 
-
-
 const idCarrito = JSON.parse(localStorage.getItem('carrito'))
 console.log(idCarrito)
 document.getElementById('carritoID').value= idCarrito
-
-
 
 const formLogin = document.getElementById('register')
 
